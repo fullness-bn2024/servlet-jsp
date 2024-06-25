@@ -8,7 +8,7 @@
 <h2>メッセージ一覧</h2>
 <ul>
   <c:forEach var="msg" items="${messages}">
-    <li><c:out value="${msg}"/></li>
+    <li>${msg}</li>
   </c:forEach>
 </ul>
 <h2>メッセージ登録</h2>

@@ -14,7 +14,6 @@
   著者 <c:out value="${author}" /><br>
   <input type="hidden" name="title" value="${title}">
   <input type="hidden" name="author" value="${author}">
-  <input type="hidden" name="csrfToken" value="${csrfToken}">
   <input type="submit" value="登録">
 </form>
 </body>

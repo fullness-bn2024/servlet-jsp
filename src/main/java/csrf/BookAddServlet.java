@@ -14,10 +14,6 @@ import jakarta.servlet.http.HttpSession;
 public class BookAddServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// csrfトークンを生成してセッションに保存
-		HttpSession session = request.getSession(true);
-		String csrfToken = UUID.randomUUID().toString();
-		session.setAttribute("csrfToken", csrfToken);
 		// JSPにフォワード
 		request.getRequestDispatcher("/WEB-INF/book/book_add_input.jsp").forward(request, response);
 	}
@@ -27,11 +23,9 @@ public class BookAddServlet extends HttpServlet {
 		// パラメーターの取得
 		String title = request.getParameter("title");
 		String author = request.getParameter("author");
-		String csrfToken = request.getParameter("csrfToken");
 		// リクエストスコープに保存
 		request.setAttribute("title", title);
 		request.setAttribute("author", author);
-		request.setAttribute("csrfToken", csrfToken);
 		// JSPにフォワード
 		request.getRequestDispatcher("/WEB-INF/book/book_add_confirm.jsp").forward(request, response);
 	}

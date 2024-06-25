@@ -11,7 +11,6 @@
 <form action="add" method="post">
   タイトル <input type="text" name="title"><br>
   著者 <input type="text" name="author"><br>
-  <input type="hidden" name="csrfToken" value="${csrfToken}">
   <input type="submit" value="登録">
 </form>
 </body>

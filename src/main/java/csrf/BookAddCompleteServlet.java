@@ -11,24 +11,12 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import sqlinjection.ConnectionManager;
 
 @WebServlet("/book/add/complete")
 public class BookAddCompleteServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// セッションを呼び出してcsrfトークン情報をチェック
-		HttpSession session = request.getSession(false);
-		if (session == null) {
-			response.sendRedirect(request.getContextPath() + "/book/add");
-			return;
-		}
-		String csrfToken = (String) session.getAttribute("csrfToken");
-		if (csrfToken == null || !csrfToken.equals(request.getParameter("csrfToken"))) {
-			response.sendRedirect(request.getContextPath() + "/book/add");
-			return;
-		}
 		// パラメーター取得
 		String title = request.getParameter("title");
 		String author = request.getParameter("author");
@@ -41,8 +29,6 @@ public class BookAddCompleteServlet extends HttpServlet {
 			stmt.setString(2, title);
 			stmt.setString(3, author);
 			stmt.executeUpdate();
-			// csrfトークンを削除
-			session.removeAttribute("csrfToken");
 		} catch (SQLException e) {
 			throw new ServletException("DB error", e);
 		} finally {
